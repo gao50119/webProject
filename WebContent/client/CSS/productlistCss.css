@@ -1,0 +1,160 @@
+@charset "UTF-8";
+
+body {
+	background: url(../IMG/timg.jpg);
+	-webkit-background-size: 100%;
+    background-size: 100%;
+	background-color: red;
+}
+
+a:link {
+	color: black;
+	font-size: 25px;
+	text-decoration: none;
+}
+a:visited {
+	color: black;
+	fon-sizet: 25px;
+	text-decoration: none;
+}
+
+
+
+#whole {
+	width: 100%;
+	height: 100%;
+}
+
+#wholetable {
+	width: 100%;
+}
+
+#head {
+	width: 450px;
+	text-align: center; 
+	/*margin: 5px 10px 5px 0px;*/
+	margin-left: 1400px;
+}
+#head a:link {
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+	text-decoration: underline;
+}
+#head a:visited {
+	color: white;
+	fon-sizet: 20px;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+table {
+	cellspacing: 0;
+}
+
+img {
+	 width: 200px;
+	 height: 140px;
+	 border: 0px;
+	 
+	 margin-top: 5px;
+}
+
+
+
+#picandword {
+	width: 250px;
+	height: 250px;
+}
+#pic {
+	text-align: center;
+    height: 160px;
+	background-color: white;
+}
+#card {
+	background-color: #ffffff;
+	width: 250px;
+	height: 70px;
+	
+	text-align: center;
+	font-weight: bold;
+	
+    border-top:5px solid black;
+    border-bottom:8px solid black;
+    border-right:15px solid black;
+    border-left:10px solid black;
+    
+    margin: 5px;
+}
+
+
+.headcard {
+	background-color: red;
+	width: 100px;
+	height: 40px;
+	
+	font-weight: bold;
+	text-align: center;
+	
+    border-top:8px solid white;
+    border-bottom:12px solid white;
+    border-right:11px solid white;
+    border-left:6px solid white;
+    
+    margin: 20px;
+}
+
+
+#page {
+	color: white;
+}
+#page a:link {
+	color: white;
+	font-size: 25px;
+	font-weight: bold;
+	text-decoration: none;
+}
+#page a:visited {
+	color: white;
+	fon-sizet: 25px;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+
+h1 {
+	background-color: red;
+	width: 200px;
+	height: 40px;
+	
+	font-weight: bold;
+	text-align: center;
+	
+    border-top:6px solid black;
+    border-bottom:9px solid black;
+    border-right:10px solid black;
+    border-left:9px solid black;
+    
+    margin: 20px;
+}
+
+hr {
+	color: black;
+}
+
+
+#alllist {
+	margin-left: 200px;
+}
+
+#lefthead {
+	margin-left: 150px;
+}
+#lefthead font {
+	color: white;
+	text-weight: bold;
+}
+
+#page {
+	margin-left: 200px;
+}

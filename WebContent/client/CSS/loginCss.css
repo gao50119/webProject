@@ -1,0 +1,83 @@
+@charset "UTF-8";
+
+body {
+	background-image: url(../IMG/darkMagic.jpg);
+	-webkit-background-size: 100%;
+    background-size: 100%;
+}
+
+#bg {
+	width: 600px;
+	height: 400px;
+	background: rgba(0,0,0,0.7);
+	
+	/*居中*/
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	
+	/*圆角*/
+	border-radius:10px 10px 10px 10px;
+}
+
+#mainPart {
+	/*居中*/
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	
+	/*字体*/
+	color: white;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.but .ch{
+	text-align: center;
+	margin: 10px;
+}
+.but input {
+	/*边框*/
+	border: 0px;
+	border-radius: 3px;
+	
+	/*宽高*/
+	padding: 5px 0px;
+	width: 200px;
+	
+	font-size: 20px; 
+}
+.font {
+	/*字体*/
+	color: white;
+	font-size: 15px;
+	
+	/*居中*/
+	text-align: center;
+	
+	margin-top: 10px;
+}
+
+#clickbut {
+	/*居中*/
+	text-align: center;
+	
+	margin-top: 30px;
+}
+#clickbut input{
+	/*边框*/
+	border: 0px;
+	border-radius: 3px;
+	
+	background: #7b727c;
+	
+	/*宽高*/
+	height: 30px;
+	width: 80px;
+	
+	margin-top: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+}

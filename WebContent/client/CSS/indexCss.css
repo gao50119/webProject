@@ -1,0 +1,93 @@
+@charset "UTF-8";
+
+body {
+	background-image:url(../IMG/20141210202639_56790.jpg);
+    -webkit-background-size: 100%;
+    background-size: 100% ;
+}
+
+#card {
+	/*居中*/
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	
+	/**/
+	width: 400px;
+	height: 600px;
+}
+
+#headline {
+	height: 50px;
+	width: 100%;
+	background-color: rgba(222,84,10,0.9);
+}
+#headline p {
+	text-align: center;
+	font: 20px;
+	font-weight: bold;
+	
+	/*居中*/
+	position: relative;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+}
+
+#link {
+	height: 550px;
+	width: 100%;
+	background-color: rgba(96,0,96,0.9);
+	
+	text-align: center;
+}
+#link .content {
+	/*居中*/
+	position: relative;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+}
+#link .content a:link {
+	color: white;
+	font-size: 60px;
+	text-decoration: none;
+}
+#link a:link font {
+	color: white;
+	font-size: 15px;
+	text-decoration: none;
+	margin-left: 5px;
+}
+#link .content a:visited {
+	color: white;
+	fon-sizet: 60px;
+	text-decoration: none;
+}
+#link a:visited font {
+	color: white;
+	font-size: 15px;
+	text-decoration: none;
+	margin-left: 5px;
+}
+
+#out a:link {
+	color: white;
+	font-size: 15px;
+	text-decoration: none;
+}
+#out a:visited {
+	color: white;
+	font-size: 15px;
+	text-decoration: none;
+}
+#out {
+	bottom: 0px;
+	
+	/*居中*/
+	position: relative;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+}

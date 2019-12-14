@@ -1,0 +1,75 @@
+@charset "UTF-8";
+
+
+body {
+	background-image: url(../IMG/1574260442125562.jpg);
+	-webkit-background-size: 100%;
+    background-size: 100%;
+}
+
+
+#bg {
+	width: 600px;
+	height: 700px;
+	background: rgba(0,0,0,0.7);
+	
+	/*居中*/
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	
+	/*圆角*/
+	border-radius:10px 10px 10px 10px;
+	
+	/**/
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#details {
+	/*居中*/
+	position: relative;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	
+	width: 550px;
+	height: 600px;
+}
+#details table {
+	/*居中*/
+	position: relative;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	
+	border-spacing: 5px 30px;
+}
+
+#bottom {
+	text-align: center;
+
+	margin-top: 100px;
+}
+#bottom input {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+#bottom a {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+.button input {
+	border: 0;
+	
+	width: 80px;
+	height: 30px;
+	
+	background-color: #502e5a;
+	
+	color: white;
+	font-size: 17px;
+	font-weight: bold;
+}

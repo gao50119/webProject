@@ -1,0 +1,74 @@
+@charset "UTF-8";
+
+body {
+	background-image:url(../IMG/309-140GG10006.jpg);
+	-webkit-background-size: 100%;
+    background-size: 100% ;
+}
+
+a:link {
+	color: white;
+	font-size: 20px;
+	text-decoration: none;
+}
+a:visited {
+	color: white;
+	fon-sizet: 20px;
+	text-decoration: none;
+}
+
+table td {
+	color: white;
+	font-weight: bold;
+	font-size: 25px;
+	
+	width: 200px;
+	padding: 1px;
+}
+tr {
+	
+}
+#card {
+	/*居中*/
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	
+	/**/
+	width: 400px;
+	height: 600px;
+}
+
+#details {
+	height: 400px;
+	width: 100%;
+	background-color: rgba(135,206,255,0.7);
+}
+#indetails {
+	width: 380px;
+	/*居中*/
+	position: relative;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+}
+
+
+#link {
+	height: 200px;
+	width: 100%;
+	background-color: rgba(0,0,0,0.7);
+	
+	text-align: center;
+}
+#inlink {
+	/*居中*/
+	position: relative;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+}
+#inlink .alink {
+	margin: 1px;
+}

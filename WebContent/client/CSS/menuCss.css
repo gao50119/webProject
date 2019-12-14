@@ -1,0 +1,131 @@
+@charset "UTF-8";
+
+body {
+	background-image: url(../IMG/p5.jpg);
+	background-size: 90% ;
+}
+
+#hello {
+	text-align: center;
+	background-color: rgba(0,0,0,0.8);
+	
+	width:300px;
+	height:50px;
+}
+#hello p {
+	color: red;
+	font-size: 20px;
+	font-weight: bold;
+	
+	/*居中*/
+	position: relative;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+}
+
+a:link {
+	color: #000000;
+	font-size: 30px;
+	font-weight: bold;
+	text-decoration: none;
+}
+a:visited {
+	color: #000000;
+	fon-sizet: 30px;
+	font-wight: bold;
+	text-decoration: none;
+}
+.cross {
+	background-color: #ffffff;
+	width: 200px;
+	height: 40px;
+	
+	text-align: center;
+	
+    border-top:5px solid black;
+    border-bottom:8px solid black;
+    border-right:15px solid black;
+    border-left:10px solid black;
+    
+    margin: 10px;
+}
+
+#cardMenu {
+	
+}
+
+#divmenu {
+	width: 900px;
+	height: 600px;
+	
+	/*居中*/
+	margin-left: 10%;
+	
+	/*overflow-y:scroll;*/
+	/*background-color: rgba(123,114,124,0.9);*/
+	
+	text-align: center;
+}
+#select {
+	/*居中*/
+	position: relative;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	
+	width: 750px;
+	height: 500px;
+}
+#select .cross {
+	background-color: #ffffff;
+	width: 200px;
+	height: 40px;
+	
+	text-align: center;
+	
+    border-top:5px solid black;
+    border-bottom:8px solid black;
+    border-right:15px solid black;
+    border-left:10px solid black;
+    
+    margin: 20px;
+}
+
+
+#divsearch {
+	margin-left: 600px;
+}
+#divsearch input {
+	/*边框*/
+	border-top: 10px solid white;
+	border-left: 15px solid white;
+	border-right: 6px solid white;
+	border-bottom: 12px solid white;
+	background-color: red;
+	
+	/*宽高*/
+	padding: 20px 0px;
+	width: 250px;
+	
+	font-size: 30px; 
+	font-weight: bold;
+	
+}
+#divsearch button {
+	/*边框*/
+	border-top: 8px solid white;
+	border-left: 5px solid white;
+	border-right: 12px solid white;
+	border-bottom: 10px solid white;
+	background-color: red;
+	
+	/*宽高*/
+	height: 80px;
+	width: 150px;
+	
+	font-size: 30px; 
+	font-weight: bold;
+	
+	margin-left: 10px;
+}
