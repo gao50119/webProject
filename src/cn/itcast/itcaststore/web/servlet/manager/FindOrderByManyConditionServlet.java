@@ -1,6 +1,7 @@
 package cn.itcast.itcaststore.web.servlet.manager;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -8,6 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
 
 import cn.itcast.itcaststore.domain.Order;
 import cn.itcast.itcaststore.service.OrderService;
@@ -31,31 +34,35 @@ public class FindOrderByManyConditionServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-        //»ñÈ¡¶©µ¥±àºÅºÍÊÕ¼şÈËÃû³Æ
 		String id = request.getParameter("id");
 		String name = request.getParameter("name");
 		String type = request.getParameter("type");
+		String category = request.getParameter("gType");
        
-		if(type.equals("admin")) {
-			 //´´½¨Service²ã¶ÔÏó
-			OrderService service = new OrderService();
-			//µ÷ÓÃService²ãOrderServiceÀàµÄfindOrderByManyCondition()·½·¨²éÑ¯Êı¾İ
-			List<Order> orders = service.findOrderByManyCondition(id, name, 1);
-	        //½«²éÑ¯½á¹ûÌí¼Óµ½request×÷ÓÃÓòÖĞ
-			request.setAttribute("orders", orders);
+		if(type.equals("admin")) {		
+			OrderService service = new OrderService();			
+			List<Order> orders = service.findOrderByManyCondition(id, name, 1, category);
 			
-            //ÇëÇó×ª·¢µ½list.jspÒ³Ãæ£¬²¢½«requestÇëÇóºÍresponseÏìÓ¦Ò²×ª·¢µ½¸ÃÒ³ÃæÖĞ
-		    request.getRequestDispatcher("/admin/orders/list.jsp").forward(request,
+			//æ“ä½œæ—¥å¿—
+	    	String userid = request.getParameter("user");
+	    	Logger logger = Logger.getLogger("adminlog");
+	    	//SimpleDateFormat  date=new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");//è®¾ç½®æ—¶é—´æ ¼å¼
+		    //System.out.println(date.format(new Date()));
+		    //è·å–ç”µè„‘ä¸Šçš„ip
+		  	String ip=InetAddress.getLocalHost().getHostAddress();
+		  	//System.out.println("ç”µè„‘ipï¼š"+ip+"ç”µè„‘åç§°ï¼š"+name);
+		  	logger.info("é”€å”®å‘˜["+userid+"] IPåœ°å€["+ip+"] è¿›è¡Œè®¢å•æŸ¥è¯¢ æŸ¥è¯¢æ¡ä»¶ä¸º[id:"+id+",name:"+name+",category:"+category+"]");
+	        
+			request.setAttribute("orders", orders);			
+		    request.getRequestDispatcher("/saler/orders/list.jsp").forward(request,
 				    response);
 		}else {
-			//ÓÃ»§
-			//´´½¨Service²ã¶ÔÏó
 			OrderService service = new OrderService();
-			//µ÷ÓÃService²ãOrderServiceÀàµÄfindOrderByManyCondition()·½·¨²éÑ¯Êı¾İ
-			List<Order> orders = service.findOrderByManyCondition(id, name, 2);
-	        //½«²éÑ¯½á¹ûÌí¼Óµ½request×÷ÓÃÓòÖĞ
-			request.setAttribute("orders", orders);
+			List<Order> orders = service.findOrderByManyCondition(id, name, 2, null);
 			
+			
+			
+			request.setAttribute("orders", orders);		
 			request.getRequestDispatcher("/client/list.jsp").forward(request,
 				    response);
 		}

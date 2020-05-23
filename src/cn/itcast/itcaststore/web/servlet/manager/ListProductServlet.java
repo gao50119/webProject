@@ -1,6 +1,7 @@
 package cn.itcast.itcaststore.web.servlet.manager;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -31,15 +32,14 @@ public class ListProductServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		// 1.创建service层的对象
 		ProductService service = new ProductService();
 		try {
-			// 2.调用service层用于查询所有商品的方法
-			List<Product> ps = service.listAll();
-			// 3.将查询出的所有商品放进request域中
+			String gtype = request.getParameter("gType");
+			//String gtype=URLDecoder.decode(request.getParameter("gType"),"utf-8");
+			//System.out.println("listp servlet "+gtype);
+			List<Product> ps = service.listByType(gtype);
 			request.setAttribute("ps", ps);
-			// 4.重定向到list.jsp页面
-			request.getRequestDispatcher("/admin/products/list.jsp").forward(
+			request.getRequestDispatcher("/saler/products/list.jsp").forward(
 					request, response);
 			return;
 		} catch (ListProductException e) {

@@ -15,6 +15,7 @@ public class Product implements Serializable {
 	private Date gPostTime;
 	private double gScore;
 	private int gState;
+	private int number;
 	
 
 	public String getgNo() {
@@ -23,6 +24,14 @@ public class Product implements Serializable {
 
 	public void setgNo(String gNo) {
 		this.gNo = gNo;
+	}
+	
+	public int getNum() {
+		return number;
+	}
+
+	public void setNum(int number) {
+		this.number = number;
 	}
 	
 	public int getgState() {
@@ -63,7 +72,7 @@ public class Product implements Serializable {
 
 	// a.jpg a_s.jpg
 	public String getgImgurl_s() {
-		int index = gImgurl.lastIndexOf("."); // µÃµ½×îµÄ.µÄË÷Òý
+		int index = gImgurl.lastIndexOf("."); // ï¿½Ãµï¿½ï¿½ï¿½ï¿½.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		String first = gImgurl.substring(0, index);
 
 		String last = gImgurl.substring(index);

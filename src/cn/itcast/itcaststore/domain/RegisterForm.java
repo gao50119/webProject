@@ -76,7 +76,7 @@ public class RegisterForm {
     		errors.put("password2", "两次输入密码不一致.");
     		flag = false;
     	}
-    	//��email��ʽУ�������������ʽ
+
     	if(email == null || email.trim().equals("")) {
     		errors.put("email", "请输入邮箱.");
     		flag = false;

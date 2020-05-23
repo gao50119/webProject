@@ -33,17 +33,16 @@ public class MenuSearchServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		// 1.���嵱ǰҳ�룬Ĭ��Ϊ1
+		
 		int currentPage = 1;
 		String _currentPage = request.getParameter("currentPage");
 		if (_currentPage != null) {
 			currentPage = Integer.parseInt(_currentPage);
 		}
-		// 2.����ÿҳ��ʾ����,Ĭ��Ϊ4
+		
 		int currentCount = 4;	
-		//��ȡǰ̨ҳ�������������ֵ
 		String searchfield = request.getParameter("textfield");
-		//�����������û������ֵ��������ݵ�ΪĬ��ֵ����ʱĬ�ϲ�ѯȫ����ƷĿ¼
+		
 		if("全部商品".equals(searchfield)){
 			request.getRequestDispatcher("/showProductByPage").forward(request, response);
 			return;
@@ -61,10 +60,11 @@ public class MenuSearchServlet extends HttpServlet {
 			logger.info("错误信息:"+e.toString());
 		}		
 		
-		//����service��ķ�����ͨ������ģ����ѯ��������Ӧ��ͼ��
+		
 		ProductService service = new ProductService();
 		PageBean bean = service.findBookByName(currentPage,currentCount,searchfield);
-		// �����ݴ洢��request��Χ����ת��product_search_list.jspҳ��չʾ
+
+
 		request.setAttribute("bean", bean);
 		request.getRequestDispatcher("/client/product_search_list.jsp").forward(request, response);
 	}		

@@ -27,9 +27,9 @@ private static final long serialVersionUID = 1L;
     public void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
     	response.setHeader("Content-type", "text/html;charset=UTF-8");
     	response.setCharacterEncoding("UTF-8");
+    	request.setCharacterEncoding("UTF-8");
     	//response.getWriter().write("Hello MyServlet");
     	
-    	//���ύ�����ݷ�װ��registerForm
     	RegisterForm form = new RegisterForm();
     	form.setName(request.getParameter("name"));
     	form.setPassword(request.getParameter("password"));
@@ -40,6 +40,7 @@ private static final long serialVersionUID = 1L;
     	if(!form.validate()) {
     		request.setAttribute("form", form);
     		request.getRequestDispatcher("/client/register.jsp").forward(request, response);
+    		return;
     	}
     	
     	
@@ -61,7 +62,7 @@ private static final long serialVersionUID = 1L;
     		response.getWriter().write(e.getMessage());
     		return;
     	}
-    	
+
     	response.sendRedirect(request.getContextPath() + "/client/login.jsp");
     	
     	

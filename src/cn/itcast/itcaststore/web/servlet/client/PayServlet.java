@@ -1,7 +1,6 @@
 package cn.itcast.itcaststore.web.servlet.client;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Map;
 
 
@@ -42,22 +41,22 @@ public class PayServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		// 1.�õ���ǰ�û�
+
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
-		// 2.�ӹ��ﳵ�л�ȡ��Ʒ��Ϣ
+
 		Map<Product, Integer> cart = (Map<Product, Integer>)session.getAttribute("cart");
 		double total = 0;
 		for (Product p : cart.keySet()) {
 			total += p.getgPrice();
 		}
-		//����
+
 		if(user.getMoney() < total) {
 			request.setAttribute("tips", "用户余额不足");
 			request.getRequestDispatcher("/client/cart.jsp").forward(request, response);
 			return;
 		}
-		// 3.�����ݷ�װ������������
+
 		for (Product p : cart.keySet()) {
 			Order order = new Order();
 			order.setUser(user);
@@ -71,8 +70,134 @@ public class PayServlet extends HttpServlet {
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
+			
+			//日志
+			//Log logger = new Log(p.getgType());
+			//logger.buyLog(user.getId(),p.getgPrice());
+			switch(p.getgType()) {
+			case "卡牌":
+				Logger logger1 = Logger.getLogger("typeCard");
+				try{
+					logger1.info("用户[" + user.getId() + "]花费了[" + p.getgPrice() + "]元,购买了["+p.getgType()+"]类商品[" + p.getgNo() + "]");
+				}catch(Exception e){
+					logger1.info("错误信息:"+e.toString());
+				}
+				break;
+			case "冒险":
+				Logger logger2 = Logger.getLogger("typeAdven");
+				try{
+					logger2.info("用户[" + user.getId() + "]花费了[" + p.getgPrice() + "]元,购买了["+p.getgType()+"]类商品[" + p.getgNo() + "]");
+				}catch(Exception e){
+					logger2.info("错误信息:"+e.toString());
+				}
+				break;
+			case "竞技":
+				Logger logger3 = Logger.getLogger("typeComp");
+				try{
+					logger3.info("用户[" + user.getId() + "]花费了[" + p.getgPrice() + "]元,购买了["+p.getgType()+"]类商品[" + p.getgNo() + "]");
+				}catch(Exception e){
+					logger3.info("错误信息:"+e.toString());
+				}
+				break;
+			case "塔防":
+				Logger logger4 = Logger.getLogger("typeDefense");
+				try{
+					logger4.info("用户[" + user.getId() + "]花费了[" + p.getgPrice() + "]元,购买了["+p.getgType()+"]类商品[" + p.getgNo() + "]");
+				}catch(Exception e){
+					logger4.info("错误信息:"+e.toString());
+				}
+				break;
+			case "模拟":
+				Logger logger5 = Logger.getLogger("typeSimula");
+				try{
+					logger5.info("用户[" + user.getId() + "]花费了[" + p.getgPrice() + "]元,购买了["+p.getgType()+"]类商品[" + p.getgNo() + "]");
+				}catch(Exception e){
+					logger5.info("错误信息:"+e.toString());
+				}
+				break;
+			case "休闲":
+				Logger logger6 = Logger.getLogger("typeLeisure");
+				try{
+					logger6.info("用户[" + user.getId() + "]花费了[" + p.getgPrice() + "]元,购买了["+p.getgType()+"]类商品[" + p.getgNo() + "]");
+				}catch(Exception e){
+					logger6.info("错误信息:"+e.toString());
+				}
+				break;
+			case "恐怖":
+				Logger logger7 = Logger.getLogger("typeHorror");
+				try{
+					logger7.info("用户[" + user.getId() + "]花费了[" + p.getgPrice() + "]元,购买了["+p.getgType()+"]类商品[" + p.getgNo() + "]");
+				}catch(Exception e){
+					logger7.info("错误信息:"+e.toString());
+				}
+				break;
+			case "RPG":
+				Logger logger8 = Logger.getLogger("typeRpg");
+				try{
+					logger8.info("用户[" + user.getId() + "]花费了[" + p.getgPrice() + "]元,购买了["+p.getgType()+"]类商品[" + p.getgNo() + "]");
+				}catch(Exception e){
+					logger8.info("错误信息:"+e.toString());
+				}
+				break;
+			case "策略":
+				Logger logger9 = Logger.getLogger("typeStrategy");
+				try{
+					logger9.info("用户[" + user.getId() + "]花费了[" + p.getgPrice() + "]元,购买了["+p.getgType()+"]类商品[" + p.getgNo() + "]");
+				}catch(Exception e){
+					logger9.info("错误信息:"+e.toString());
+				}
+				break;
+			case "动作":
+				Logger logger10 = Logger.getLogger("typeMove");
+				try{
+					logger10.info("用户[" + user.getId() + "]花费了[" + p.getgPrice() + "]元,购买了["+p.getgType()+"]类商品[" + p.getgNo() + "]");
+				}catch(Exception e){
+					logger10.info("错误信息:"+e.toString());
+				}
+				break;
+			case "射击":
+				Logger logger11 = Logger.getLogger("typeShot");
+				try{
+					logger11.info("用户[" + user.getId() + "]花费了[" + p.getgPrice() + "]元,购买了["+p.getgType()+"]类商品[" + p.getgNo() + "]");
+				}catch(Exception e){
+					logger11.info("错误信息:"+e.toString());
+				}
+				break;
+			case "音乐":
+				Logger logger12 = Logger.getLogger("typeMusic");
+				try{
+					logger12.info("用户[" + user.getId() + "]花费了[" + p.getgPrice() + "]元,购买了["+p.getgType()+"]类商品[" + p.getgNo() + "]");
+				}catch(Exception e){
+					logger12.info("错误信息:"+e.toString());
+				}
+				break;
+			case "体育":
+				Logger logger13 = Logger.getLogger("typePe");
+				try{
+					logger13.info("用户[" + user.getId() + "]花费了[" + p.getgPrice() + "]元,购买了["+p.getgType()+"]类商品[" + p.getgNo() + "]");
+				}catch(Exception e){
+					logger13.info("错误信息:"+e.toString());
+				}
+				break;
+			case "格斗":
+				Logger logger14 = Logger.getLogger("typeFight");
+				try{
+					logger14.info("用户[" + user.getId() + "]花费了[" + p.getgPrice() + "]元,购买了["+p.getgType()+"]类商品[" + p.getgNo() + "]");
+				}catch(Exception e){
+					logger14.info("错误信息:"+e.toString());
+				}
+			}
+			
+			int count = service.findAllOrderById(user.getId(), p.getgNo());
+			System.out.println("pay count:"+count);
+			//表示已购买了超过3次的同类商品
+			if(count>3) {
+			    //异常日志
+			    Logger logger = Logger.getLogger("exception");
+			    logger.info("用户["+user.getId()+"]已经购买了["+count+"]次商品["+p.getgNo()+"]");
+			}
 		}
-		//�����ʼ�
+
 		try {
 		    String emailMsg = "您在商品总共消费：" + total + "元";
 		    MailUtils.sendMail(user.getEmail(),emailMsg);
@@ -80,32 +205,21 @@ public class PayServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		//��־
-		Logger logger = Logger.getLogger("userlog");
-		try{						
-			logger.info("[" + user.getId() + "]购物花费了[" + total + "]");
-			
-		}catch(Exception e){
-			logger.info("错误信息:"+e.toString());
-		}
 		
-		//��ȡ�µ��û���Ϣ
+
 		String username = user.getId();
 		String password = user.getPassword();
 		UserService service = new UserService();
 		try {
 		    User newuser = service.login(username, password);
-		    // ��¼�ɹ������û��浽session��
 		    request.getSession().setAttribute("user", newuser);
 		} catch (LoginException e) {
-            //�����򽫴�����Ϣ�洢��request
 			e.printStackTrace();
 			request.setAttribute("register_message", e.getMessage());
 			request.getRequestDispatcher("/index.jsp").forward(request, response);
 			return;
 		}
 		
-		//���session�е�cart��Ϣ
 		cart.clear();
 		request.getSession().setAttribute("cart", cart);		
 		//request.getRequestDispatcher("/client/myAccount.jsp").forward(request, response);

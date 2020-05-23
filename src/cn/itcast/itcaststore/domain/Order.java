@@ -11,6 +11,7 @@ public class Order {
 	private Date ordertime;
 
 	private User user;
+	private User saler;
 	private Product product;
 	
 
@@ -61,6 +62,13 @@ public class Order {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	public User getSaler() {
+		return saler;
+	}
+
+	public void setSaler(User saler) {
+		this.saler = saler;
+	}
 	
 	public Product getProduct() {
 		return product;
@@ -73,7 +81,7 @@ public class Order {
 	@Override
 	public String toString() {
 		return "Order [oNo=" + oNo + ", clientState=" + clientState + ", adminState=" + adminState
-				+ ", ordertime=" + ordertime + ", user=" + user
+				+ ", ordertime=" + ordertime + ", user=" + user + ", saler=" + saler
 				+ ", product=" + product + "]";
 	}
 

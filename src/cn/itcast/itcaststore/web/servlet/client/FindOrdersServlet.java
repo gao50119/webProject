@@ -31,23 +31,19 @@ public class FindOrdersServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		// 创建Service层对象
 		OrderService service = new OrderService();
 		String type = request.getParameter("type");
 		String id = request.getParameter("id");
-		//管理员
+		String category = request.getParameter("gType");
+
 		if(type.equals("admin")) {
-		    // 调用Service层对象的findAllOrder()方法查询订单列表
-		    List<Order> orders = service.findOrderByManyCondition(null, null, 1);
-		    //将查询到的订单信息添加到request作用域
+		    List<Order> orders = service.findOrderByManyCondition(null, null, 1, category);
 		    request.setAttribute("orders", orders);
-		    // 将请求转发到list.jsp页面
-		    request.getRequestDispatcher("/admin/orders/list.jsp").forward(request,response);
+		    request.getRequestDispatcher("/saler/orders/list.jsp").forward(request,response);
 		}
 		else if(type.equals("client")) {
-			List<Order> orders = service.findOrderByManyCondition(null, id, 2);
+			List<Order> orders = service.findOrderByManyCondition(null, id, 2, null);
 			request.setAttribute("orders", orders);
-		    // 将请求转发到list.jsp页面
 		    request.getRequestDispatcher("/client/list.jsp").forward(request,response);
 		}
 	}

@@ -1,0 +1,62 @@
+@charset "UTF-8";
+
+body {
+	background-image: url(../IMG/darkMagic.jpg);
+	-webkit-background-size: 100%;
+    background-size: 100%;
+}
+
+#bg {
+	width: 600px;
+	height: 700px;
+	background: rgba(0,0,0,0.7);
+	
+	/*居中*/
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	
+	/*圆角*/
+	border-radius:10px 10px 10px 10px;
+}
+
+#bg table {
+	/*居中*/
+	position: relative;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	
+	color: white;
+	font-weight: bold;
+	font-size: 45px;
+	
+	border-spacing: 20px 30px;
+}
+
+#bg input {
+	/*宽高*/
+	padding: 10px 0px;
+	width: 200px;
+	
+	margin-left: 0px;
+}
+#button {
+	margin-left: 150px;
+}
+#button input{
+	background-color: #fce176;
+	
+	width: 120px;
+	height: 50px;
+	
+	font-size: 18px;
+	font-weight: bold;
+	color: white;
+	
+	border: 0px;
+	margin: 10px;
+	
+	text-align: center;
+}

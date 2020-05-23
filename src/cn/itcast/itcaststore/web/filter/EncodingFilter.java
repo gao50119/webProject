@@ -40,21 +40,9 @@ public class EncodingFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		// place your code here
-		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-		HttpServletRequest myrequest = new MyRequest(httpServletRequest);
 		
-		//��ֹ���˵�css
-		String url=(myrequest).getRequestURI();
-		System.out.println("url:" +url);
-		if(url.indexOf(".css")>0||url.indexOf(".js")>0||url.indexOf(".png")>0) {
-		     chain.doFilter(myrequest, response);
-		     return;
-		}
-		//����
-		
-		response.setContentType("text/html;charset=utf-8");
 		// pass the request along the filter chain
-		chain.doFilter(myrequest, response);
+		chain.doFilter(request, response);
 	}
 
 	/**

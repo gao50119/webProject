@@ -6,16 +6,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/client/CSS/productlistCss.css" />
+<script src="https://cdn.bootcdn.net/ajax/libs/FileSaver.js/1.3.8/FileSaver.js"></script>
 <title>商品列表</title>
 </head>
 <body>
 <div id="whole">
+<input id="time" type="hidden" />
+<input id="type" value="${bean.category}" type="hidden" />
 <table id="wholetable">
 <tr>
 <td>
 	<div id="head">
 	<table><tr>
-	<td><div class="headcard"><a href="${pageContext.request.contextPath }/client/menu_search.jsp">购物首页</a></div></td>
+	<td><div class="headcard"><a href="${pageContext.request.contextPath }/toMenuSearchServlet">购物首页</a></div></td>
 	<td><div class="headcard">${bean.category}</div></td>
 	<td><div class="headcard">商品列表</div></td>
 	</tr></table>
@@ -86,4 +89,46 @@
 </table>
 </div>
 </body>
+
+
+<script type="text/javascript">
+var second=0;
+var minute=0;
+var hour=0;
+window.setTimeout("interval();",1000);
+function interval()
+{
+	second++;
+	/*if(second==60)
+	{
+	second=0;minute+=1;
+	}
+	if(minute==60)
+	{
+	minute=0;hour+=1;
+	}*/
+	
+	var a=document.getElementById("time");
+	//document.textarea.value = hour+"时"+minute+"分"+second+"秒";
+	a.value=hour+"时"+minute+"分"+second+"秒";
+	window.setTimeout("interval();",1000);
+}
+
+
+function setCookie(name,value,days){  
+	var expires=new Date(); 
+	expires.setTime(expires.getTime()+days*24*60*60*1000);
+	//var value_utf8 = URLEncoder.encode(value,"UTF-8"); 
+	//var value_utf8 = encodeURI(encodeURI(value)); escape(escape(value))
+	document.cookie=name+"="+escape(value)+";expires="+expires.toGMTString();
+}
+
+
+window.onbeforeunload = function() {
+	var type = document.getElementById("type").value;
+	setCookie("type",type,1);
+	setCookie("time",second,1);
+};
+
+</script>
 </html>

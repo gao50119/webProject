@@ -15,7 +15,7 @@
 <td>
     <div id="head">
     <table><tr>
-	<td><div class="headcard"><a href="${pageContext.request.contextPath }/client/menu_search.jsp">购物首页</a></div></td>
+	<td><div class="headcard"><a href="${pageContext.request.contextPath }/toMenuSearchServlet">购物首页</a></div></td>
 	<td><div class="headcard">全部商品</div></td>
 	<td><div class="headcard">商品列表</div></td>
 	</tr></table>
@@ -39,7 +39,7 @@
 		</a></p>
 		</div>
 		<div id="card">
-		<a href="${pageContext.request.contextPath}/findProductById?gNo=${p.gNo}">书名： ${p.gName}
+		<a href="${pageContext.request.contextPath}/findProductById?gNo=${p.gNo}">游戏名： ${p.gName}
 		<br />售价：￥${p.gPrice} </a>
 		</div>
 		</td>

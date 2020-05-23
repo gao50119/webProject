@@ -7,9 +7,10 @@ public class User {
     private double money;
     private String id;
     private String role;
+    private String gtype;
     
     
-    /**ÓÃ»§Ãû*/
+    /**ï¿½Ã»ï¿½ï¿½ï¿½*/
     public String getId()
     {
     	return id;
@@ -18,7 +19,7 @@ public class User {
     {
     	this.id = id;
     }
-    /**êÇ³Æ*/
+    /**ï¿½Ç³ï¿½*/
     public String getName()
     {
     	return name;
@@ -28,7 +29,7 @@ public class User {
     	this.name = name;
     }
     
-    /**ÃÜÂë*/
+    /**ï¿½ï¿½ï¿½ï¿½*/
     public String getPassword()
     {
     	return password;
@@ -39,7 +40,7 @@ public class User {
     }
 
     
-    /**ÓÊÏä*/
+    /**ï¿½ï¿½ï¿½ï¿½*/
     public String getEmail()
     {
     	return email;
@@ -48,7 +49,7 @@ public class User {
     	this.email = email;
     }
     
-    /**½ðÇ®*/
+    /**ï¿½ï¿½Ç®*/
     public double getMoney() {
     	return money;
     }
@@ -56,11 +57,18 @@ public class User {
     	this.money = money;
     }
     
-    /**½ÇÉ«*/
+    /**ï¿½ï¿½É«*/
     public String getRole() {
     	return role;
     }
     public void setRole(String role) {
     	this.role = role;
+    }
+    
+    public String getgType() {
+    	return gtype;
+    }
+    public void setgType(String gtype) {
+    	this.gtype = gtype;
     }
 }

@@ -5,17 +5,23 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/client/CSS/menuCss.css" />
-<title>Insert title here</title>
+<title>首页</title>
 </head>
-<body>
+
 <table>
+    <% if(session.getAttribute("user") == null){%>
+    <tr><td>
+    <div id="hello"><a href="${pageContext.request.contextPath }/client/login.jsp">登录</a></div></td></tr>
+    <%}else{ %>
     <tr><td>
     <div id="hello"><p>${sessionScope.user.name}，你好</p></div></td></tr>
     <tr>
     <td><div class="cross"><a href="${pageContext.request.contextPath }/client/myAccount.jsp">我的账号</a></div></td>
     <td><div class="cross"><a href="${pageContext.request.contextPath }/client/cart.jsp">购物车</a></div></td>
-    <td><div class="cross"><a href="${pageContext.request.contextPath }/logoutServlet">退出账号</a></div>
+    <td><div class="cross"><a href="${pageContext.request.contextPath }/logoutServlet">退出账号</a></div></td>
+    <td><div class="cross"><a href="${pageContext.request.contextPath }/recommendServlet?id=${sessionScope.user.id}">猜你喜欢</a></div>
     </td></tr>
+    <%}%>
 </table>
 <div id="cardMenu">
 <div id="divmenu">
@@ -86,11 +92,32 @@ function my_blur(obj, myid){
  }
 }
 
-/**
- * 点击搜索按钮执行的函数
- */
+var second=0;
+var minute=0;
+var hour=0;
+window.setTimeout("interval();",1000);
+function interval()
+{
+	second++;
+	if(second==60)
+	{
+	second=0;minute+=1;
+	}
+	if(minute==60)
+	{
+	minute=0;hour+=1;
+	}
+	var a=document.getElementById("textarea");
+	//document.textarea.value = hour+"时"+minute+"分"+second+"秒";
+	a.value=hour+"时"+minute+"分"+second+"秒";
+	window.setTimeout("interval();",1000);
+}
+
+
 function search(){
 	document.getElementById("searchform").submit();
 }
+
+
 </script>
 </html>

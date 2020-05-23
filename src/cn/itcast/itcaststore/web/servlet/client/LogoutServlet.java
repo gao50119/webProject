@@ -1,12 +1,18 @@
 package cn.itcast.itcaststore.web.servlet.client;
 
 import java.io.IOException;
+import java.net.InetAddress;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
+
+import cn.itcast.itcaststore.domain.User;
 
 /**
  * Servlet implementation class LogoutServlet
@@ -36,14 +42,21 @@ public class LogoutServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		// 获取session对象.
 		HttpSession session = request.getSession();
-		// 销毁session
+		User user = (User) session.getAttribute("user");
+		String role = user.getRole();
+		
+		
+		//鎿嶄綔鏃ュ織
+    	//String userid = request.getParameter("user");
+    	Logger logger = Logger.getLogger("adminlog");
+	    //鑾峰彇鐢佃剳涓婄殑ip
+	  	String ip=InetAddress.getLocalHost().getHostAddress();
+	  	logger.info(role+"["+user.getId()+"] IP鍦板潃["+ip+"] 鐧诲嚭绯荤粺");
+		
 		session.invalidate();
-		// flag标识
 		String flag = request.getParameter("flag");
 		if (flag == null || flag.trim().isEmpty()) {
-			// 重定向到首页
 			response.sendRedirect(request.getContextPath() + "/client/login.jsp");
 	    }
 	}

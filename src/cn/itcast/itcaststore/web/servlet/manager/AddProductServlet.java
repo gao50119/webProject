@@ -4,12 +4,17 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
+import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +24,8 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
+
 import cn.itcast.itcaststore.domain.Product;
 import cn.itcast.itcaststore.exception.AddProductException;
 import cn.itcast.itcaststore.service.ProductService;
@@ -44,80 +51,73 @@ public class AddProductServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		// ����javaBean,���ϴ����ݷ�װ.
+
 		Product p = new Product();
 		Map<String, String> map = new HashMap<String, String>();
-		// ��װ��Ʒid
 		map.put("gNo", IdUtils.getUUID());
 
 		DiskFileItemFactory dfif = new DiskFileItemFactory();
-		// ������ʱ�ļ��洢λ��
 		dfif.setRepository(new File(this.getServletContext().getRealPath(
 				"/temp")));
-		// �����ϴ��ļ������С
 		dfif.setSizeThreshold(1024 * 1024 * 10);
-		// �����ϴ����
 		ServletFileUpload upload = new ServletFileUpload(dfif);
 
 		upload.setHeaderEncoding("utf-8");
 		try {
-			// ����request�õ����е�FileItem
 			List<FileItem> items = upload.parseRequest(request);
-			// ��������FileItem
+
 			for (FileItem item : items) {
-				// �жϵ�ǰ�Ƿ����ϴ����
 				if (item.isFormField()) {
-					// �����ϴ����
-					String fieldName = item.getFieldName(); // ��ȡ�������
-					String value = item.getString("utf-8"); // �����������
+					String fieldName = item.getFieldName();
+					String value = item.getString("utf-8");
+					//System.out.println(fieldName + " " + value);
 					map.put(fieldName, value);
 				} else {
-					// ���ϴ����
-					// �õ��ϴ��ļ���ʵ����
 					String fileName = item.getName();
 					fileName = FileUploadUtils.subFileName(fileName);
 
-					// �õ��������
 					String randomName = FileUploadUtils
 							.generateRandonFileName(fileName);
 
-					// �õ����Ŀ¼
 					String randomDir = FileUploadUtils
 							.generateRandomDir(randomName);
-					// ͼƬ�洢��Ŀ¼
+					
 					String imgurl_parent = "/productImg" + randomDir;
 
 					File parentDir = new File(this.getServletContext()
 							.getRealPath(imgurl_parent));
-					// ��֤Ŀ¼�Ƿ���ڣ���������ڣ���������
+					//System.out.println("parentDir:"+parentDir);
+					
 					if (!parentDir.exists()) {
 						parentDir.mkdirs();
+						//System.out.println("excute mkdirs");
 					}
 					String imgurl = imgurl_parent + "/" + randomName;
 
 					map.put("gImgurl", imgurl);
 
-					/*IOUtils.copy(item.getInputStream(), new FileOutputStream(
-							new File(parentDir, randomName)));*/
+					IOUtils.copy(item.getInputStream(), new FileOutputStream(
+							new File(parentDir, randomName)));
 					
-					InputStream in = item.getInputStream();
+					/*InputStream in = item.getInputStream();
 					FileOutputStream out = new FileOutputStream(new File(parentDir, randomName));
 					byte[] buffer = new byte[1024];
 					
 					int len;
-					while ((len = in.read(buffer)) > 0)
+					while ((len = in.read(buffer)) > 0) {
+						System.out.println("output");
 						out.write(buffer, 0, len);
+					}
 					
 					in.close();
 					out.close();
-					item.delete();
+					item.delete();*/
 				}
 			}
 		} catch (FileUploadException e) {
 			e.printStackTrace();
 		}
 		try {
-			// �����ݷ�װ��javaBean��
 			BeanUtils.populate(p, map);
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
@@ -126,10 +126,24 @@ public class AddProductServlet extends HttpServlet {
 		}
 		ProductService service = new ProductService();
 		try {
-			// ����service��������Ʒ����
 			service.addProduct(p);
-			response.sendRedirect(request.getContextPath()
-					+ "/listProduct");
+			
+			//操作日志
+	    	String userid = request.getParameter("user");
+	    	Logger logger = Logger.getLogger("adminlog");
+	    	//SimpleDateFormat  date=new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");//设置时间格式
+		    //System.out.println(date.format(new Date()));
+		    //获取电脑上的ip
+		  	String ip=InetAddress.getLocalHost().getHostAddress();
+		  	//System.out.println("电脑ip："+ip+"电脑名称："+name);
+		  	logger.info("销售员["+userid+"] IP地址["+ip+"] 添加商品["+p.getgNo()+"]");
+			
+			
+			//request.setAttribute("gType", map.get("gType"));
+			//System.out.println("addp servlet"+map.get("gType"));
+			String gType = map.get("gType");
+			request.getRequestDispatcher("/listProduct?gType="+gType).forward(request, response);
+			//response.sendRedirect(request.getContextPath()+ "/listProduct?gType="+map.get("gType"));
 			return;
 		} catch (AddProductException e) {
 			e.printStackTrace();

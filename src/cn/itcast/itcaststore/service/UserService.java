@@ -1,6 +1,7 @@
 package cn.itcast.itcaststore.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.security.auth.login.LoginException;
 
@@ -44,4 +45,77 @@ public class UserService {
 			throw new LoginException("登录失败");
 		}
 	}
+    
+    public void addSaler(User user) throws RegisterException{
+    	try {
+    		boolean result = dao.addSaler(user);
+    		System.out.print("add完成");
+    		
+    		if(result == false)
+    		{
+    			System.out.print("执行成功");
+    			throw new RegisterException("用户名已存在");
+    		}
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		throw new RegisterException("注册失败");
+    	}
+    }
+
+    
+    public void delSaler(String id) throws SQLException{
+    	try {
+    		boolean result = dao.delSaler(id);
+    		if(result == false)
+    		{
+    			System.out.print("删除成功");
+    		}
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}    	
+    }
+    
+    public List<User> findSaler(String id, String category) throws SQLException{
+    	List<User> list = null;
+    	try {
+			//从数据库查找用户
+			list= dao.findSaler(id, category);
+			//System.out.println("list"+list);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return list;
+    }
+    
+    public void editSaler(User user) throws SQLException{
+    	try {
+    	    boolean result = dao.editSaler(user);
+    	    if(result == true)
+    		{
+    			System.out.print("执行成功");
+    		}
+    	} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	
+    }
+    
+    
+    public List<User> findNormalUser() throws SQLException{
+    	List<User> list = null;
+    	try {
+			//从数据库查找用户
+			list= dao.findNormalUser();
+			//System.out.println("list"+list);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return list;
+    }
+    
+    
+    public User findUserById(String id) throws SQLException{
+    	User user = dao.findUserById(id);
+    	return user;
+    }
 }

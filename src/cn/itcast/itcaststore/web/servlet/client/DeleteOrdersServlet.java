@@ -1,11 +1,15 @@
 package cn.itcast.itcaststore.web.servlet.client;
 
 import java.io.IOException;
+import java.net.InetAddress;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
 
 import cn.itcast.itcaststore.service.OrderService;
 
@@ -31,17 +35,28 @@ public class DeleteOrdersServlet extends HttpServlet {
 		String type = request.getParameter("type");
 		String oNo = request.getParameter("oNo");
 		String id = request.getParameter("id");
+		String category = request.getParameter("category");
 		
 		OrderService service = new OrderService();
 		if(type.equals("client")) {
-			//�û�����
+
 			service.delOrderByIdWithClient(oNo);
 			request.getRequestDispatcher("/findOrders?type=client&id=" + id).forward(request,response);
 		}
 		else if(type.equals("admin")) {
-			//����Ա����
 			service.delOrderById(oNo);
-			request.getRequestDispatcher("/findOrders?type=admin").forward(request,response);
+			
+			//操作日志
+	    	String userid = request.getParameter("user");
+	    	Logger logger = Logger.getLogger("adminlog");
+	    	//SimpleDateFormat  date=new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");//设置时间格式
+		    //System.out.println(date.format(new Date()));
+		    //获取电脑上的ip
+		  	String ip=InetAddress.getLocalHost().getHostAddress();
+		  	//System.out.println("电脑ip："+ip+"电脑名称："+name);
+		  	logger.info("销售员["+userid+"] IP地址["+ip+"] 删除订单["+oNo+"]");
+		  	
+			request.getRequestDispatcher("/findOrders?type=admin&gType="+category).forward(request,response);
 		}
 	}
 

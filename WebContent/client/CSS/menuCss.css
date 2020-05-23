@@ -24,6 +24,14 @@ body {
 	transform: translate(-50%,-50%);
 }
 
+#hello a {
+	color: red;
+	font-size: 20px;
+	font-weight: bold;
+	
+	
+}
+
 a:link {
 	color: #000000;
 	font-size: 30px;

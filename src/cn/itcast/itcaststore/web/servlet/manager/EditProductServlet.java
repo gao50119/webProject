@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,8 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
+
 import cn.itcast.itcaststore.domain.Product;
 import cn.itcast.itcaststore.service.ProductService;
 import cn.itcast.itcaststore.utils.FileUploadUtils;
@@ -42,51 +45,43 @@ public class EditProductServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		// ´´½¨javaBean,½«ÉÏ´«Êı¾İ·â×°.
+
 		Product p = new Product();
 		Map<String, String> map = new HashMap<String, String>();
 
 		DiskFileItemFactory dfif = new DiskFileItemFactory();
-		// ÉèÖÃÁÙÊ±ÎÄ¼ş´æ´¢Î»ÖÃ
 		dfif.setRepository(new File(this.getServletContext().getRealPath(
 				"/temp")));
-		// ÉèÖÃÉÏ´«ÎÄ¼ş»º´æ´óĞ¡Îª10m
 		dfif.setSizeThreshold(1024 * 1024 * 10);
-		// ´´½¨ÉÏ´«×é¼ş
+
 		ServletFileUpload upload = new ServletFileUpload(dfif);
-		// ´¦ÀíÉÏ´«ÎÄ¼şÖĞÎÄÂÒÂë
 		upload.setHeaderEncoding("utf-8");
 		try {
-			// ½âÎörequestµÃµ½ËùÓĞµÄFileItem
 			List<FileItem> items = upload.parseRequest(request);
-			// ±éÀúËùÓĞFileItem
+
 			for (FileItem item : items) {
-				// ÅĞ¶Ïµ±Ç°ÊÇ·ñÊÇÉÏ´«×é¼ş
 				if (item.isFormField()) {
-					// ²»ÊÇÉÏ´«×é¼ş
-					String fieldName = item.getFieldName(); // »ñÈ¡×é¼şÃû³Æ
-					String value = item.getString("utf-8"); // ½â¾öÂÒÂëÎÊÌâ
+					String fieldName = item.getFieldName();
+					String value = item.getString("utf-8");
 					map.put(fieldName, value);
 				} else {
-					// ÊÇÉÏ´«×é¼ş
-					// µÃµ½ÉÏ´«ÎÄ¼şÕæÊµÃû³Æ
+
 					String fileName = item.getName();
 					if (fileName != null && fileName.trim().length() > 0) {
 						fileName = FileUploadUtils.subFileName(fileName);
 
-						// µÃµ½Ëæ»úÃû³Æ
+
 						String randomName = FileUploadUtils
 								.generateRandonFileName(fileName);
 
-						// µÃµ½Ëæ»úÄ¿Â¼
 						String randomDir = FileUploadUtils
 								.generateRandomDir(randomName);
-						// Í¼Æ¬´æ´¢¸¸Ä¿Â¼
+
 						String imgurl_parent = "/productImg" + randomDir;
 
 						File parentDir = new File(this.getServletContext()
 								.getRealPath(imgurl_parent));
-						// ÑéÖ¤Ä¿Â¼ÊÇ·ñ´æÔÚ£¬Èç¹û²»´æÔÚ£¬´´½¨³öÀ´
+
 						if (!parentDir.exists()) {
 							parentDir.mkdirs();
 						}
@@ -95,20 +90,9 @@ public class EditProductServlet extends HttpServlet {
 
 						map.put("gImgurl", imgurl);
 
-						/*IOUtils.copy(item.getInputStream(),
+						IOUtils.copy(item.getInputStream(),
 								new FileOutputStream(new File(parentDir,
-										randomName)));*/
-						InputStream in = item.getInputStream();
-						FileOutputStream out = new FileOutputStream(new File(parentDir, randomName));
-						byte[] buffer = new byte[1024];
-						
-						int len;
-						while ((len = in.read(buffer)) > 0)
-							out.write(buffer, 0, len);
-						
-						in.close();
-						out.close();
-						item.delete();
+										randomName)));
 					}
 				}
 
@@ -120,7 +104,6 @@ public class EditProductServlet extends HttpServlet {
 		}
 
 		try {
-			// ½«Êı¾İ·â×°µ½javaBeanÖĞ
 			BeanUtils.populate(p, map);
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
@@ -130,10 +113,19 @@ public class EditProductServlet extends HttpServlet {
 
 		
 		ProductService service = new ProductService();
+		String gtype = request.getParameter("gtype");
+		//æ“ä½œæ—¥å¿—
+    	String userid = request.getParameter("user");
+    	Logger logger = Logger.getLogger("adminlog");
+    	//SimpleDateFormat  date=new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");//è®¾ç½®æ—¶é—´æ ¼å¼
+	    //System.out.println(date.format(new Date()));
+	    //è·å–ç”µè„‘ä¸Šçš„ip
+	  	String ip=InetAddress.getLocalHost().getHostAddress();
+	  	//System.out.println("ç”µè„‘ipï¼š"+ip+"ç”µè„‘åç§°ï¼š"+name);
+	  	logger.info("é”€å”®å‘˜["+userid+"] IPåœ°å€["+ip+"] ç¼–è¾‘å•†å“["+p.getgNo()+"]");
 
-		// µ÷ÓÃserviceÍê³ÉĞŞ¸ÄÉÌÆ·²Ù×÷
 		service.editProduct(p);
-		response.sendRedirect(request.getContextPath() + "/listProduct");
+		response.sendRedirect(request.getContextPath() + "/listProduct?gType="+gtype);
 		return;
 
 	}		

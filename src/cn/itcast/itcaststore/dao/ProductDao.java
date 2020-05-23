@@ -21,6 +21,12 @@ public class ProductDao {
 		return runner.query(sql, new BeanListHandler<Product>(Product.class));
 	}
 	
+	public List<Product> listByType(String category) throws SQLException {
+		String sql = "select * from product where gType=?";
+		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+		return runner.query(sql, new BeanListHandler<Product>(Product.class), category);
+	}
+	
 	// 获取数据总条数
 	public int findAllCount(String category) throws SQLException {
 		String sql = "select count(*) from product";
@@ -75,13 +81,13 @@ public class ProductDao {
 	}
 	
 	// 销售榜单 按销售量排序
-	public List<Object[]> salesList(String year, String month)
+	public List<Object[]> salesList(String year, String month, String category)
 			throws SQLException {
-		String sql = "SELECT product.gName,Count(product.gNo) totalsalnum "
+		String sql = "SELECT product.gName,Count(product.gNo) totalsalnum,product.gNo "
 				+ "FROM `order`,product "
-				+ "WHERE product.gNo=`order`.gNo and year(ordertime)=? and month(ordertime)=? GROUP BY product.gNo ORDER BY totalsalnum DESC";
+				+ "WHERE product.gNo=`order`.gNo and year(ordertime)=? and month(ordertime)=? and gType=? GROUP BY product.gNo ORDER BY totalsalnum DESC";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
-		return runner.query(sql, new ArrayListHandler(), year, month);
+		return runner.query(sql, new ArrayListHandler(), year, month, category);
 	}
 	
 	// 多条件查询
@@ -109,7 +115,6 @@ public class ProductDao {
 
 
 		Object[] params = list.toArray();
-
 		return runner.query(sql, new BeanListHandler<Product>(Product.class),
 				params);
 	}
@@ -135,8 +140,8 @@ public class ProductDao {
 		}
 		sql += " where gNo=?";
 		obj.add(p.getgNo());		
-		System.out.println(sql);		
-		System.out.println(obj);
+		//System.out.println(sql);		
+		//System.out.println(obj);
 		//3.创建QueryRunner对象
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		//4.使用QueryRunner对象的update()方法更新数据
